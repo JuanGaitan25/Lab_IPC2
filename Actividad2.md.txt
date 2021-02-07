@@ -1,0 +1,97 @@
+Actividad 2- Investigacion de DOM xml y
+xPath xml en Python
+XML.dom
+Contenido del Módulo
+
+El módulo xml.dom contiene las siguientes funciones:
+
+xml.dom.registerDOMImplementation(name, factory)
+
+Registra la función factory con el nombre name. La función fábrica (factory) debe retornar un
+objeto que implemente la interfaz DOMImplementation. La función fábrica puede retornar el
+mismo objeto cada vez que se llame, o uno nuevo por cada llamada, según sea apropiado para la
+implementación específica (e.g. si la implementación soporta algunas personalizaciones).
+
+xml.dom.getDOMImplementation(name=None, features=())
+
+Retorna una implementación del DOM apropiada. El name es o bien conocido, el nombre del
+módulo de una implementación DOM, o None. Si no es None importa el módulo correspondiente y
+retorna un objecto DomImplementation si la importación tiene éxito. Si no se le pasa un nombre, y
+el entorno de variable PYTHON_DOM ha sido puesto, dicha variable es usada para encontrar la
+información de la implementación.
+
+Si no se le pasa un nombre, examina las implementaciones disponibles para encontrar uno con el
+conjunto de características requeridas. Si no se encuentra ninguna implementación, levanta una
+excepción ImportError. La lista de características debe ser una secuencia de pares
+(feature,version) que son pasados al método hasFeature() en objetos disponibles de
+DOMImplementation.
+
+Algunas constantes convenientes son proporcionadas:
+
+xml.dom.EMPTY_NAMESPACE
+
+El valor usado para indicar que ningún espacio de nombres es asociado con un nodo en el DOM. Se
+encuentra típicamente con el namespaceURI de un nodo, o usado como el parámetro
+namespaceURI para un método específico del namespace.
+
+xml.dom.XML_NAMESPACE
+
+El espacio de nombres de la URI asociada con el prefijo xml, como se define por Namespaces in
+XML (section 4).
+
+xml.dom.XMLNS_NAMESPACE
+
+El espacio de nombres del URI para declaraciones del espacio de nombres, como se define en
+Document Object Model (DOM) Level 2 Core Specification (section 1.1.8).
+
+xml.dom.XHTML_NAMESPACE
+
+El URI del espacio de nombres del XHTML como se define en XHTML 1.0: The Extensible HyperText
+Markup Language (section 3.1.1).
+
+Además, xml.dom contiene una clase base Node y las clases de excepciones del DOM. La clase
+Node proporcionada por este módulo no implementa ninguno de los métodos o atributos
+definidos en la especificación DOM; las implementaciones del DOM concretas deben definirlas. La
+clase Node propuesta por este módulo sí proporciona las constantes usadas por el atributo
+nodeType en objetos concretos de Node; estas son localizadas dentro de la clase en vez de estar al
+nivel del módulo para cumplir las especificaciones del DOM.
+
+Objetos en DOM
+
+Xpath
+Xpath es un módulo que es parte de la librería xml.etree.ElementTree por lo general la misma se
+importa de la siguiente manera:
+
+1 import^ xml.etree.ElementTree as ET^
+Xpath provee una serie de expresiones para localizar elementos en un árbol, su finalidad es
+proporcionar un conjunto de sintaxis, por lo que debido a su limitado alcance no se considera un
+motor en si mismo.
+
+Ejemplos de uso de Xpath:
+
+import xml.etree.ElementTree as ET
+root = ET.fromstring(docxml)
+
+Elementos de nivel superior
+
+root.findall(".")
+
+todos los hijos de neighbor o nietos de country en el nivel superior
+
+root.findall("./country/neighbor")
+
+Nodos xml con name='Singapore' que sean hijos de 'year'
+
+root.findall(".//year/..[@name='Singapore']")
+
+nodos 'year' que son hijos de etiquetas xml cuyo name='Singapore'
+
+root.findall(".//*[@name='Singapore']/year")
+
+todos los nodos 'neighbor'que son el segundo hijo de su padre
+
+root.findall(".//neighbor[2]")
+
+Como vemos nos permite extraer facilmente partes del xml haciendo referencia a su ubicación
+nodal representada a forma de path, lo que nos hace una sintaxis familiarmente sencilla a la hora
+de construir un paser xml.
